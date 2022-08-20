@@ -97,15 +97,17 @@ file4.close()
     Part 3: Search for the same companies and scrape their details
 '''
 
+#fetch the saved links
 file4=open("JobLinks.txt",'r',encoding='utf-8')
 links=str(file4.read())
 links=links.split("\n")
 
+#fetch the webpage
 driver.get(f"{links[0]}")
 page_source=driver.page_source
-
+#parse in BeautifulSoup
 lsoup = BeautifulSoup(page_source,features="html.parser")
-
+#save the files in a text file
 file5=open("JobDesc.txt",'w',encoding='utf-8')
 desc="Description:"+lsoup.select('.about-us__description')[0].getText()
 loc="Location:"+lsoup.select('dd.font-sans.text-md.text-color-text.break-words.overflow-hidden')[3].getText().strip()
